@@ -1,6 +1,6 @@
 {
   "name": "keepsake-agent-skills",
-  "version": "1.7.1",
+  "version": "1.8.0",
   "description": "AI Agent Skill for Keepsake (keepsake.place), the app where creators and solo entrepreneurs empty their heads",
   "license": "MIT",
   "author": "Keepsake <nicolas@croce.fr>",

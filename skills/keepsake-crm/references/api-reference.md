@@ -148,6 +148,25 @@ the wrong place. Omit `quote` for a note-wide comment.
 
 `note` is the **intention or question of the day**: one short line (mantra, intention, single priority, or a question to keep in mind). Not a journal — never write a summary of the day here, and never write a note's content here: to put a note on a day, use `POST /notes/:id/dates/:date` (or `dates` on the note).
 
+## Day timeline (time blocks)
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/day-blocks?date=YYYY-MM-DD` | List a day's blocks, in timeline order. Also creates that day's recurring blocks if they are not there yet |
+| POST | `/day-blocks` | Create a block (body: `{ date, title, duration_minutes, anchor_time? }`). Placed in the first free slot; `anchor_time` (HH:MM) pins it to a fixed hour |
+| PATCH | `/day-blocks/:id` | Update a block for that day only. `done: true/false` checks or unchecks it |
+| DELETE | `/day-blocks/:id` | Delete a block. On a recurring block: removes it from that day only, the repetition continues |
+| GET | `/recurring-blocks?date=YYYY-MM-DD` | List the blocks that come back on chosen weekdays, with the rule in force on that date |
+| POST | `/recurring-blocks` | Make a block recurring (body: `{ weekdays, block_id }` from an existing block, or `{ weekdays, title, duration_minutes, anchor_time?, start_date? }`) |
+| PATCH | `/recurring-blocks/:id` | Change a recurring block from a date onward (body: `{ title?, duration_minutes?, anchor_time?, weekdays?, from_date? }`) |
+| DELETE | `/recurring-blocks/:id?from_date=YYYY-MM-DD` | Stop the repetition from a date onward |
+
+`weekdays` are ISO numbers: 1 = Monday … 7 = Sunday. A recurring block is also a
+**habit**: each day it is an ordinary block the user checks off, and consecutive
+checked days form a streak. Changes apply from a date onward — past days are never
+rewritten. To change or skip **one day only**, act on that day's block
+(`/day-blocks/:id`), not on the repetition.
+
 ## Tags
 
 | Method | Endpoint | Description |

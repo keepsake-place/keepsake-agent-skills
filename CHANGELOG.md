@@ -4,6 +4,16 @@ All notable changes to the Keepsake Agent Skill will be documented in this file.
 
 Format based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.8.0] - 2026-10-11
+
+### Added
+- **Ideal day and habits.** The skill now covers the day timeline:
+  `list_day_blocks`, `create_day_block`, `update_day_block`, `delete_day_block`,
+  and the new recurring blocks — `list_recurring_blocks`,
+  `create_recurring_block`, `update_recurring_block`, `stop_recurring_block`
+  (`/recurring-blocks`). Tell your assistant "I meditate every morning" and it
+  sets up a block that comes back each day; checking it off builds a streak.
+
 ## [1.7.1] - 2026-10-09
 
 ### Changed

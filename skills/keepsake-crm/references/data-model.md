@@ -119,6 +119,20 @@ A calendar day carrying the user's **intention or question of the day** — one 
 | createdAt | timestamp | auto | Creation date |
 | updatedAt | timestamp | auto | Last update |
 
+### Day block and recurring block
+
+A **day block** is a time block on a day's timeline: an activity (`type: block`) or a
+task bucket (`type: tasks`, groups the day's untimed tasks). It has a `title`, a
+`duration_minutes`, an optional `anchor_time` (HH:MM, fixed hour) and `done_at` once
+checked.
+
+A **recurring block** is a rule: "this block comes back on these weekdays"
+(`weekdays`, ISO 1 = Monday … 7 = Sunday). Each planned day gets its own day block,
+created when that day is opened; that block carries `repeats.recurring_block_id`.
+This is how Keepsake tracks habits — there is no separate "habit" entity: the streak
+is the number of consecutive planned days whose block was checked. A day that was
+not planned, or from which the block was removed, does not break the streak.
+
 ### Tag
 
 A thematic grouping space / project page.

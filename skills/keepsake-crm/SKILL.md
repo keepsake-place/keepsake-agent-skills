@@ -83,6 +83,8 @@ Keepsake is the **connective tissue**: every element can be linked to all three 
 
 **Tasks and reminders**: `create_task` with a due date and optional recurrence (daily, weekdays, weekly, biweekly, monthly, quarterly, yearly). `snooze_task` to postpone. `complete_task` auto-creates the next occurrence for recurring tasks.
 
+**Ideal day and habits**: `list_day_blocks` shows a day's timeline. When your user describes a routine ("I meditate every morning", "writing on weekdays from 9"), use `create_recurring_block` with the weekdays it comes back on (1 = Monday … 7 = Sunday) — pass `block_id` if the block is already on today's timeline. A recurring block is a habit: your user checks it off each day and the streak builds up. `update_recurring_block` and `stop_recurring_block` apply from a date onward and never rewrite the past; to change or skip a single day, use `update_day_block` or `delete_day_block` on that day's block.
+
 **Stay synced**: Call `get_changelog?since=<timestamp>` at session start to learn what changed since your last interaction. Save the returned `server_time` for your next call.
 
 # Dimension: People
