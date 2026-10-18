@@ -4,6 +4,19 @@ All notable changes to the Keepsake Agent Skill will be documented in this file.
 
 Format based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [Unreleased]
+
+### Added
+- **Marketplace plugin.** The repo is now a Grok Bot / Cursor plugin:
+  `.grok-plugin/plugin.json`, `.cursor-plugin/plugin.json`, `.mcp.json`
+  (hosted MCP at `https://app.keepsake.place/api/mcp`, OAuth sign-in) and
+  `assets/logo.png` (1:1, white background plate).
+
+### Fixed
+- README: MCP tool count updated from 58 to 88.
+- Repository URLs now point at `github.com/keepsake-place/keepsake-agent-skills`
+  after the transfer from `nicolascroce/keepsake-agent-skills`.
+
 ## [1.8.0] - 2026-10-11
 
 ### Added

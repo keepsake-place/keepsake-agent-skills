@@ -1,0 +1,23 @@
+{
+  "name": "keepsake",
+  "displayName": "Keepsake",
+  "description": "Keepsake (keepsake.place) is the app where creators and solo entrepreneurs empty their heads: ideas, tasks and the people who matter, all the way to publishing. This plugin connects the hosted Keepsake MCP server (88 tools) and the keepsake-crm skill. Sign in with your Keepsake account on first connect.",
+  "version": "1.8.0",
+  "author": {
+    "name": "Keepsake"
+  },
+  "homepage": "https://keepsake.place",
+  "repository": "https://github.com/keepsake-place/keepsake-agent-skills",
+  "license": "MIT",
+  "keywords": [
+    "keepsake",
+    "keepsake.place",
+    "keepsake mcp",
+    "keepsake notes",
+    "keepsake tasks"
+  ],
+  "category": "productivity",
+  "logo": "assets/logo.png",
+  "skills": "skills",
+  "mcpServers": ".mcp.json"
+}

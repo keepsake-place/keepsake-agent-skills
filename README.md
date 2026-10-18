@@ -4,13 +4,35 @@ Give your AI agent a memory that lasts: ideas, tasks and the people who matter.
 
 ## What is this?
 
-[Keepsake](https://keepsake.place) (keepsake.place) is the app where creators and solo entrepreneurs empty their heads: ideas, tasks and the people who matter, together and linked in one place, all the way to publishing. This skill teaches AI agents how to use Keepsake effectively — when to log interactions, how to organize contacts, and how to build a knowledge base.
+[Keepsake](https://keepsake.place) (keepsake.place) is the app where creators and solo entrepreneurs empty their heads: ideas, tasks and the people who matter, all the way to publishing. This skill teaches AI agents how to use Keepsake effectively — when to log interactions, how to organize contacts, and how to build a knowledge base.
 
 ## Quick Start
 
 1. **Create your account** at [app.keepsake.place](https://app.keepsake.place/register)
 2. **Generate an API key** in Settings → API Keys
 3. **Install the skill** (coming soon — for now, copy `skills/keepsake-crm/SKILL.md` to your agent's skills directory)
+
+## Install as a plugin (Grok Bot, Cursor)
+
+This repository is also a plugin for the Grok Bot and Cursor plugin marketplaces. It bundles:
+
+- **The hosted Keepsake MCP server** (`.mcp.json`) — `https://app.keepsake.place/api/mcp`, 88 tools, Streamable HTTP.
+- **The `keepsake-crm` skill** (`skills/keepsake-crm/`) — teaches your agent how to use Keepsake well.
+
+Manifests: `.grok-plugin/plugin.json` and `.cursor-plugin/plugin.json`. Logo: `assets/logo.png`.
+
+On first use, your client opens the Keepsake sign-in page (OAuth 2.1 with PKCE). Approve access and you're connected — no API key to copy. You need a Keepsake account ([start a 30-day free trial](https://app.keepsake.place/register)).
+
+### Network endpoints and credentials
+
+| Endpoint | Why |
+|---|---|
+| `https://app.keepsake.place/api/mcp` | The MCP server the plugin connects to |
+| `https://app.keepsake.place/oauth/authorize`, `/api/oauth/token`, `/api/oauth/register`, `/api/oauth/revoke` | OAuth sign-in and token revocation (discovered via `/.well-known/oauth-protected-resource` and `/.well-known/oauth-authorization-server`) |
+
+- **Credentials:** an OAuth access token for your own Keepsake account (scope `mcp`), stored by your client. Clients without OAuth can send a personal API key (`ksk_…`, Settings → API Keys) as `Authorization: Bearer`.
+- **Data access:** only your own account, enforced by Row Level Security. Every write is shown in the Activity Feed inside Keepsake.
+- **No hooks, no scripts, no local code execution.** The plugin is configuration and Markdown only.
 
 ## What the skill teaches your agent
 
@@ -22,7 +44,7 @@ Give your AI agent a memory that lasts: ideas, tasks and the people who matter.
 
 ## Also available
 
-- **MCP Server**: `npx -y keepsake-mcp` — 58 native tools for Claude, Cursor, and any MCP client ([npm](https://www.npmjs.com/package/keepsake-mcp))
+- **MCP Server**: `npx -y keepsake-mcp` — 88 native tools for Claude, Cursor, and any MCP client ([npm](https://www.npmjs.com/package/keepsake-mcp))
 - **REST API**: Full HTTP API for custom integrations ([documentation](https://keepsake.place/en/api))
 
 ## Links
