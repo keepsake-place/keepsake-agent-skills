@@ -4,13 +4,13 @@ Give your AI agent a memory that lasts: ideas, tasks and the people who matter.
 
 ## What is this?
 
-[Keepsake](https://keepsake.place) (keepsake.place) is the app where creators and solo entrepreneurs empty their heads: ideas, tasks and the people who matter, all the way to publishing. This skill teaches AI agents how to use Keepsake effectively — when to log interactions, how to organize contacts, and how to build a knowledge base.
+[Keepsake](https://keepsake.place) (keepsake.place) is the app where creators and solo entrepreneurs empty their heads: ideas, tasks and the people who matter, together and linked in one place, all the way to publishing. This skill teaches AI agents how to use Keepsake effectively — when to log interactions, how to organize contacts, and how to build a knowledge base.
 
 ## Quick Start
 
 1. **Create your account** at [app.keepsake.place](https://app.keepsake.place/register)
-2. **Generate an API key** in Settings → API Keys
-3. **Install the skill** (coming soon — for now, copy `skills/keepsake-crm/SKILL.md` to your agent's skills directory)
+2. **Install this repository as a plugin** in Grok Bot or Cursor. See [Install as a plugin](#install-as-a-plugin-grok-bot-cursor). On first connect, sign in with your Keepsake account.
+3. **No plugin client?** Copy `skills/keepsake-crm/SKILL.md` to your agent's skills directory, then generate an API key in Settings → API Keys.
 
 ## Install as a plugin (Grok Bot, Cursor)
 
@@ -31,7 +31,7 @@ On first use, your client opens the Keepsake sign-in page (OAuth 2.1 with PKCE).
 | `https://app.keepsake.place/oauth/authorize`, `/api/oauth/token`, `/api/oauth/register`, `/api/oauth/revoke` | OAuth sign-in and token revocation (discovered via `/.well-known/oauth-protected-resource` and `/.well-known/oauth-authorization-server`) |
 
 - **Credentials:** an OAuth access token for your own Keepsake account (scope `mcp`), stored by your client. Clients without OAuth can send a personal API key (`ksk_…`, Settings → API Keys) as `Authorization: Bearer`.
-- **Data access:** only your own account, enforced by Row Level Security. Every write is shown in the Activity Feed inside Keepsake.
+- **Data access:** only your own account. Writes made through the API appear in API Activity inside Keepsake.
 - **No hooks, no scripts, no local code execution.** The plugin is configuration and Markdown only.
 
 ## What the skill teaches your agent
