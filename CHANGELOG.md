@@ -15,7 +15,12 @@ Format based on [Keep a Changelog](https://keepachangelog.com/).
   plugin client.
 
 ### Fixed
-- README: MCP tool count updated from 58 to 88.
+- README: MCP tool count is 87 public tools (the 88th is internal).
+- **Skill.** The description uses the full Keepsake sentence. Support is
+  `support@keepsake.place`. API keys are under Settings → Connections →
+  API keys and Claude. `unpin_note` is removed from the tool table (it is
+  not an MCP tool). Writes appear in API Activity, and access is limited
+  to only your own account. Skill metadata version is 1.9.0.
 - Repository URLs now point at `github.com/keepsake-place/keepsake-agent-skills`
   after the transfer from `nicolascroce/keepsake-agent-skills`.
 
