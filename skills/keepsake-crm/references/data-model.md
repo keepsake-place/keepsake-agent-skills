@@ -142,6 +142,9 @@ A thematic grouping space / project page.
 | id | uuid | auto | Unique identifier |
 | name | string | yes | Tag name |
 | emoji | string | no | Display emoji |
+| description | text | no | Free text — where a project page keeps its state (status, deadline, next step) |
+| is_favorite | boolean | no | Shown in the user's sidebar |
+| archived_at | timestamp \| null | no | Set when the page is archived (closed project): out of the active surfaces, nothing deleted |
 | createdAt | timestamp | auto | Creation date |
 | updatedAt | timestamp | auto | Last update |
 

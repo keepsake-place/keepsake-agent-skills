@@ -5,12 +5,12 @@ description: >
   empty their heads: ideas, tasks and the people who matter, together and
   linked in one place, all the way to publishing. Use when the user wants to
   capture an idea or a note, mentions people, meetings, promises, follow-ups,
-  things to do or a project. Works with the keepsake-mcp server (87 tools) or
+  things to do or a project. Works with the keepsake-mcp server (88 tools) or
   the REST API directly.
 license: MIT
 metadata:
   author: Keepsake
-  version: 1.9.0
+  version: 1.10.0
   mcp-server: keepsake-mcp
   category: productivity
   tags: [crm, contacts, relationships, tasks, notes, personal-crm]
@@ -104,13 +104,13 @@ Keepsake is the **connective tissue**: every element can be linked to all three 
 
 # Dimension: Themes (Knowledge Base)
 
-**Notes = index cards**: Use `create_note` for ideas, references, checklists. Keep them short and intentional. `pin_note` only for post-its — short references the user wants always at hand (gate code, room number, Wi-Fi password), never just because a note is important, `archive_note` when processed — archived notes stay searchable forever.
+**Notes = index cards**: Use `create_note` for ideas, references, checklists. Keep them short and intentional. `pin_note` only for post-its — short references the user wants always at hand (gate code, room number, Wi-Fi password), never just because a note is important (`unpin_note` when it no longer needs to be at hand), `archive_note` when processed — archived notes stay searchable forever. For reference material the user asked you to keep (a project's status note, meeting minutes filed on a page), `create_note` with `archived: true` creates the permanent Note directly instead of dropping it in the Inbox.
 
 **Notes on a day**: a note can be attached to one or more calendar days — "note for tomorrow", "what to bring Thursday", the prep for a meeting on the 18th. Pass `dates: ["YYYY-MM-DD"]` to `create_note` / `update_note`, or `link_note_date` on an existing note; link the relevant contacts too. The note then surfaces in that day's view while staying in the notes list. It is **not a task** (no action to complete) and **not the day's intention** (`update_day` is one short line — writing a note there overwrites it). To move a note to another day, `update_note` with the new `dates` array. To see a day: `get_day` returns both the intention (`note`) and the linked notes (`notes`); `list_notes` with `date` answers "what did I note for Monday?".
 
 **Publication flow**: a note the user may publish one day (article, post, newsletter) can move through their publication flow — by default Idea → In progress → To review → Ready → Published. Stages are the user's own (renamed, recolored, added, removed in Settings → Publishing flow), so call `list_note_statuses` before setting one, and pass a stage name, key or id. `create_note` with `status` puts a new note straight into the flow (as a permanent Note, like "Keep to publish" in the app) — only when the user says they may publish it; most notes never enter the flow. `update_note` with `status` moves a note along ("this one is ready"); `status: null` takes it out. `list_notes` with `status` answers "what's waiting for review?" (`publication` = every note in the flow not published yet, `none` = notes outside the flow). Publishing on the user's Keepsake Page sets the published stage automatically.
 
-**Tags/Pages = project boxes**: Use `create_tag` to create a thematic grouping. Use `link_tag` to attach any element (note, entry, task, contact) to a tag. Use `get_tag_items` to see everything in a project.
+**Tags/Pages = project boxes**: Use `create_tag` to create a thematic grouping. Use `link_tag` to attach any element (note, entry, task, contact) to a tag. Use `get_tag_items` to see everything in a project. A page's state (status, deadline, next step) goes in its `description` (`update_tag`) — there is no separate status field. When a project is finished, `update_tag` with `archived: true` closes it: the page leaves the sidebar and page lists, nothing is deleted, `archived: false` reopens it. `list_tags` with `archived: false` lists the active projects only, `favorite: true` the user's favorite pages.
 
 **Tag syntax**: Use `#tag name#` or `[[page name]]` in content to auto-create and link tags.
 
@@ -161,6 +161,8 @@ Every note, entry, and task can connect to 0-N contacts AND 0-N tags. Use dedica
 | Attach a note to a day | `create_note` with `dates`, or `link_note_date` |
 | Notes of a day | `list_notes` with `date`, or `get_day` |
 | Pin a note | `pin_note` |
+| Unpin a note | `unpin_note` |
+| Create a permanent Note directly (no Inbox) | `create_note` with `archived: true` |
 | Archive a note | `archive_note` |
 | Stages of the publication flow | `list_note_statuses` |
 | Move a note to a stage | `update_note` with `status` |
@@ -168,6 +170,8 @@ Every note, entry, and task can connect to 0-N contacts AND 0-N tags. Use dedica
 | Create a tag | `create_tag` |
 | Link tag to element | `link_tag` |
 | See tag contents | `get_tag_items` |
+| Close a project (archive its page) | `update_tag` with `archived: true` |
+| Active / favorite pages | `list_tags` with `archived: false` / `favorite: true` |
 | Create a company | `create_company` |
 | Link a person to a company | `create_contact` / `update_contact` with `company`, or `link_contact_company` |
 | Merge duplicate companies | `merge_companies` |

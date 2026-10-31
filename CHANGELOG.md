@@ -4,6 +4,17 @@ All notable changes to the Keepsake Agent Skill will be documented in this file.
 
 Format based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.10.0] - 2026-10-31
+
+### Added
+- **Project pages.** `update_tag` with `archived: true` closes a finished
+  project (the page leaves the active surfaces, nothing is deleted);
+  `list_tags` filters on `archived` and `favorite`. A page's state lives in
+  its description — there is no separate status field.
+- **Notes.** `unpin_note`, and `create_note` with `archived: true` to file a
+  permanent Note directly instead of an Inbox capture.
+- MCP tool count: 88 public tools.
+
 ## [1.9.0] - 2026-10-18
 
 ### Added

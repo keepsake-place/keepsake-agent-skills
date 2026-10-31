@@ -95,7 +95,7 @@ Authorization: Bearer ksk_YOUR_API_KEY
 | GET | `/notes` | List notes. Query: `?pinned=true&archived=false`, `?date=YYYY-MM-DD` or `?date_from=…&date_to=…` (notes linked to a day / range), `?company_id=`, `?tag_id=` (notes of one page), `?status=` (publication-flow stage: name, key or id from `/note-statuses`; `publication` = in the flow but not published, `none` = outside the flow). Each note carries `dates` and `status` |
 | GET | `/notes/:id` | Get a single note |
 | GET | `/note-statuses` | Stages of the user's publication flow, in order (`id`, `key`, `name`, `color`, `category`: unstarted / started / published) |
-| POST | `/notes` | Create a note |
+| POST | `/notes` | Create a note (`archived: true` creates a permanent Note directly instead of an Inbox QuickNote; `status` implies it) |
 | PATCH | `/notes/:id` | Update a note |
 | DELETE | `/notes/:id` | Delete a note |
 | POST | `/notes/:id/pin` | Pin a note |
@@ -171,11 +171,11 @@ rewritten. To change or skip **one day only**, act on that day's block
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| GET | `/tags` | List tags (`?q=` name search, `?limit=&offset=` pagination; ordering arrays omitted — use `?include_orders=true` or GET `/tags/:id`) |
+| GET | `/tags` | List tags (`?q=` name search, `?archived=true\|false` archived or active only, `?favorite=true\|false` favorites or not, `?limit=&offset=` pagination; ordering arrays omitted — use `?include_orders=true` or GET `/tags/:id`) |
 | GET | `/tags/:id` | Get a single tag (includes `tasks_order`, where `"h:<header_id>"` entries mark section separators) |
 | GET | `/tags/:id/items` | Get items linked to a tag (`?types=tasks,notes`, `?status=pending\|completed` for tasks, `?summary=true` for lightweight items; response includes task `sections` — `header_id: null` = tasks outside any section) |
 | POST | `/tags` | Create a tag |
-| PATCH | `/tags/:id` | Update a tag: `{ name?, description?, color?, icon?, is_favorite?, tasks_order? }` — `tasks_order` is the full display order of the page's tasks, with `"h:<header_id>"` entries for sections (read it with GET `/tags/:id`, edit, send the whole array back; tasks listed after a section belong to it) |
+| PATCH | `/tags/:id` | Update a tag: `{ name?, description?, color?, icon?, is_favorite?, archived?, tasks_order? }` — `archived: true` takes the page out of the active surfaces without deleting anything (`false` restores it) — `tasks_order` is the full display order of the page's tasks, with `"h:<header_id>"` entries for sections (read it with GET `/tags/:id`, edit, send the whole array back; tasks listed after a section belong to it) |
 | DELETE | `/tags/:id` | Delete a tag |
 
 **Create body**: `{ name, emoji? }`
