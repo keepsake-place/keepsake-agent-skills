@@ -4,6 +4,21 @@ All notable changes to the Keepsake Agent Skill will be documented in this file.
 
 Format based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.11.0] - 2026-11-04
+
+### Added
+- **Merge pages.** `merge_tag` folds a duplicate page into another: its links
+  move over, `#old#` / `[[old]]` are rewritten as the kept page's name in every
+  note, task and entry, then the duplicate is deleted. Renaming a page onto an
+  existing name now points to it.
+- **Block notes.** `link_day_block_note` / `link_entry_note`: a time block's note
+  is where the user prepares it, then writes what happened; the entry that
+  records the interaction points to the same note.
+- **Notes kept across a recurring block.** `keep_recurring_block_note` /
+  `stop_keeping_recurring_block_note`: a project log or a routine's checklist
+  shown on every occurrence, without ever rewriting past days.
+- MCP tool count: 95 public tools.
+
 ## [1.10.0] - 2026-10-31
 
 ### Added

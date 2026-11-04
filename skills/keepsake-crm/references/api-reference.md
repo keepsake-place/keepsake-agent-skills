@@ -59,6 +59,8 @@ Authorization: Bearer ksk_YOUR_API_KEY
 | DELETE | `/entries/:id/companies/:companyId` | Remove a company |
 | POST | `/entries/:id/tags/:tagId` | Link a tag |
 | DELETE | `/entries/:id/tags/:tagId` | Unlink a tag |
+| POST | `/entries/:id/notes/:noteId` | Link a note: the write-up of that interaction (entries return `note_ids`) |
+| DELETE | `/entries/:id/notes/:noteId` | Unlink a note (the note itself survives) |
 
 **Create body**: `{ type, date, content?, contact_ids?, company_ids?, tag_ids? }`
 
@@ -156,10 +158,14 @@ the wrong place. Omit `quote` for a note-wide comment.
 | POST | `/day-blocks` | Create a block (body: `{ date, title, duration_minutes, anchor_time? }`). Placed in the first free slot; `anchor_time` (HH:MM) pins it to a fixed hour |
 | PATCH | `/day-blocks/:id` | Update a block for that day only. `done: true/false` checks or unchecks it |
 | DELETE | `/day-blocks/:id` | Delete a block. On a recurring block: removes it from that day only, the repetition continues |
+| POST | `/day-blocks/:id/notes/:noteId` | Link a note to a block: where the user prepares it, then writes what happened. Blocks return `notes`, `note` (text of the first one), `kept_notes` and `entry_id` |
+| DELETE | `/day-blocks/:id/notes/:noteId` | Unlink a note from a block |
 | GET | `/recurring-blocks?date=YYYY-MM-DD` | List the blocks that come back on chosen weekdays, with the rule in force on that date |
 | POST | `/recurring-blocks` | Make a block recurring (body: `{ weekdays, block_id }` from an existing block, or `{ weekdays, title, duration_minutes, anchor_time?, start_date? }`) |
 | PATCH | `/recurring-blocks/:id` | Change a recurring block from a date onward (body: `{ title?, duration_minutes?, anchor_time?, weekdays?, from_date? }`) |
 | DELETE | `/recurring-blocks/:id?from_date=YYYY-MM-DD` | Stop the repetition from a date onward |
+| POST | `/recurring-blocks/:id/notes/:noteId` | Keep a note in the repetition from `from_date` on ("Keep for the following days"): every occurrence shows it, days already planned included. Repetitions list their kept notes in `notes` |
+| DELETE | `/recurring-blocks/:id/notes/:noteId?from_date=YYYY-MM-DD` | Stop keeping it from that date: earlier days keep it |
 
 `weekdays` are ISO numbers: 1 = Monday … 7 = Sunday. A recurring block is also a
 **habit**: each day it is an ordinary block the user checks off, and consecutive
@@ -176,7 +182,8 @@ rewritten. To change or skip **one day only**, act on that day's block
 | GET | `/tags/:id/items` | Get items linked to a tag (`?types=tasks,notes`, `?status=pending\|completed` for tasks, `?summary=true` for lightweight items; response includes task `sections` — `header_id: null` = tasks outside any section) |
 | POST | `/tags` | Create a tag |
 | PATCH | `/tags/:id` | Update a tag: `{ name?, description?, color?, icon?, is_favorite?, archived?, tasks_order? }` — `archived: true` takes the page out of the active surfaces without deleting anything (`false` restores it) — `tasks_order` is the full display order of the page's tasks, with `"h:<header_id>"` entries for sections (read it with GET `/tags/:id`, edit, send the whole array back; tasks listed after a section belong to it) |
-| DELETE | `/tags/:id` | Delete a tag |
+| DELETE | `/tags/:id` | Delete a tag (its `#tag#` / `[[tag]]` markers are stripped from content, the words stay) |
+| POST | `/tags/:id/merge` | Merge this tag into `{ target_id }`: all its links move over, `#this#` / `[[this]]` are rewritten as the target's name in all content, then this tag is deleted. Renaming onto an existing tag's name returns 409 (use merge) |
 
 **Create body**: `{ name, emoji? }`
 

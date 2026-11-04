@@ -16,7 +16,7 @@ Give your AI agent a memory that lasts: ideas, tasks and the people who matter.
 
 This repository is also a plugin for the Grok Bot and Cursor plugin marketplaces. It bundles:
 
-- **The hosted Keepsake MCP server** (`.mcp.json`) — `https://app.keepsake.place/api/mcp`, 88 tools, Streamable HTTP.
+- **The hosted Keepsake MCP server** (`.mcp.json`) — `https://app.keepsake.place/api/mcp`, 95 tools, Streamable HTTP.
 - **The `keepsake-crm` skill** (`skills/keepsake-crm/`) — teaches your agent how to use Keepsake well.
 
 Manifests: `.grok-plugin/plugin.json` and `.cursor-plugin/plugin.json`. Logo: `assets/logo.png`.
@@ -44,7 +44,7 @@ On first use, your client opens the Keepsake sign-in page (OAuth 2.1 with PKCE).
 
 ## Also available
 
-- **MCP Server**: `npx -y keepsake-mcp` — 88 native tools for Claude, Cursor, and any MCP client ([npm](https://www.npmjs.com/package/keepsake-mcp))
+- **MCP Server**: `npx -y keepsake-mcp` — 95 native tools for Claude, Cursor, and any MCP client ([npm](https://www.npmjs.com/package/keepsake-mcp))
 - **REST API**: Full HTTP API for custom integrations ([documentation](https://keepsake.place/en/api))
 
 ## Links

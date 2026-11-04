@@ -5,12 +5,12 @@ description: >
   empty their heads: ideas, tasks and the people who matter, together and
   linked in one place, all the way to publishing. Use when the user wants to
   capture an idea or a note, mentions people, meetings, promises, follow-ups,
-  things to do or a project. Works with the keepsake-mcp server (88 tools) or
+  things to do or a project. Works with the keepsake-mcp server (95 tools) or
   the REST API directly.
 license: MIT
 metadata:
   author: Keepsake
-  version: 1.10.0
+  version: 1.11.0
   mcp-server: keepsake-mcp
   category: productivity
   tags: [crm, contacts, relationships, tasks, notes, personal-crm]
@@ -85,6 +85,8 @@ Keepsake is the **connective tissue**: every element can be linked to all three 
 **Tasks and reminders**: `create_task` with a due date and optional recurrence (daily, weekdays, weekly, biweekly, monthly, quarterly, yearly). `snooze_task` to postpone. `complete_task` auto-creates the next occurrence for recurring tasks.
 
 **Ideal day and habits**: `list_day_blocks` shows a day's timeline. When your user describes a routine ("I meditate every morning", "writing on weekdays from 9"), use `create_recurring_block` with the weekdays it comes back on (1 = Monday … 7 = Sunday) — pass `block_id` if the block is already on today's timeline. A recurring block is a habit: your user checks it off each day and the streak builds up. `update_recurring_block` and `stop_recurring_block` apply from a date onward and never rewrite the past; to change or skip a single day, use `update_day_block` or `delete_day_block` on that day's block.
+
+**Block notes**: a block's notes are where your user prepares it and then writes what happened — one note, completed, never two. `link_day_block_note` attaches an existing note to a block; `link_entry_note` attaches it to the entry that records the interaction (e.g. the meeting). A note written in a recurring block belongs to that day only; to carry it across the series (a project log, a routine's checklist), use `keep_recurring_block_note`, and `stop_keeping_recurring_block_note` to end that from a date — the past keeps it.
 
 **Stay synced**: Call `get_changelog?since=<timestamp>` at session start to learn what changed since your last interaction. Save the returned `server_time` for your next call.
 
@@ -175,6 +177,9 @@ Every note, entry, and task can connect to 0-N contacts AND 0-N tags. Use dedica
 | Create a company | `create_company` |
 | Link a person to a company | `create_contact` / `update_contact` with `company`, or `link_contact_company` |
 | Merge duplicate companies | `merge_companies` |
+| Merge duplicate pages (tags) | `merge_tag` |
+| Link a note to a time block / an entry | `link_day_block_note` / `link_entry_note` |
+| Keep a note across a recurring block | `keep_recurring_block_note` |
 | Link a task/note/entry to a company | `company_ids`, or `link_task_company` / `link_note_company` / `link_entry_company` |
 | Everything about a company | `list_tasks` / `list_notes` / `list_entries` with `company_id` |
 | Contacts of a company | `list_contacts` with `company` |
